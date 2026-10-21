@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Ahmed El Reweny, AI film director in Cairo. Short films, commercials and campaigns made with generative AI.">
+<title>Reweny Creates</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: black and white, one giant name, a portrait band that opens into the full screen on scroll, then quiet sections. Single dark look by choice. */
+:root{
+  --black:#0a0a0a; --ink:#141414; --line:#262626;
+  --white:#f2f2f0; --grey:#8a8a88;
+  --display:"Anton","Impact","Arial Narrow",sans-serif;
+  --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.lock{overflow:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--white);outline-offset:3px}
+.g{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.cap{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.bw{filter:grayscale(1) contrast(1.06)}
+
+/* corner nav */
+.corner{position:fixed;z-index:20;top:calc(14px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;justify-content:space-between;align-items:center;pointer-events:none;mix-blend-mode:difference}
+.corner a{pointer-events:auto;text-decoration:none;color:#fff}
+.corner .dot{width:10px;height:10px;border-radius:50%;background:#fff}
+
+.soc{display:flex;gap:8px;pointer-events:auto}
+.soc a{width:38px;height:38px;border-radius:50%;border:1px solid #fff;display:grid;place-items:center;transition:background .2s}
+.soc a:hover{background:#fff}.soc a:hover svg{stroke:#000}
+.soc svg,.li svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.li{display:inline-flex;align-items:center;gap:10px}
+
+/* opener */
+.open{position:relative;height:100vh;height:100svh;min-height:480px}
+.open-sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center}
+.name{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.8;margin:0;font-size:min(29vw,46vh);letter-spacing:-.01em;color:var(--white);user-select:none}
+.band{position:absolute;inset:0;clip-path:inset(var(--t,42%) 0 var(--t,42%) 0);will-change:clip-path}
+.band img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;transform:scale(var(--s,1.15))}
+.open-foot{position:absolute;left:0;right:0;bottom:calc(16px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:16px;z-index:2}
+.open-foot p{margin:0;text-align:center;max-width:36ch}
+.open-foot a{text-decoration:none}
+.open-foot a:last-child{justify-self:end}
+.open-foot .sub{color:var(--grey);display:block;margin-bottom:4px}
+@media (max-width:640px){.open-foot{grid-template-columns:1fr 1fr}.open-foot p{grid-column:1/-1;grid-row:1;text-align:left}}
+
+/* about */
+.about{padding-block:clamp(80px,14vw,180px) clamp(40px,6vw,80px)}
+.about-in{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(24px,5vw,80px)}
+.about .lead{font-size:clamp(22px,2.6vw,36px);line-height:1.2;font-weight:500;margin:0;max-width:30ch;text-wrap:balance}
+.about .lead span{color:var(--grey)}
+.facts{display:flex;gap:clamp(24px,4vw,56px);flex-wrap:wrap;margin-top:36px}
+.facts div{display:flex;flex-direction:column;gap:2px}
+.facts b{font-family:var(--display);font-weight:400;font-size:clamp(40px,5vw,64px);line-height:1}
+.facts span{color:var(--grey)}
+@media (max-width:760px){.about-in{grid-template-columns:1fr}}
+.marq{overflow:hidden;white-space:nowrap;border-block:1px solid var(--line);padding-block:8px}
+.marq div{display:inline-block;font-family:var(--display);text-transform:uppercase;font-size:clamp(80px,16vw,240px);line-height:.95;animation:mq 38s linear infinite;padding-right:.3em}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* works */
+.works{padding-block:clamp(80px,12vw,160px)}
+.works-in{max-width:1400px;margin:0 auto}
+.works-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,56px)}
+.works-head h2{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(48px,8vw,120px);line-height:.85;margin:0}
+.works-head p{margin:0;color:var(--grey);max-width:34ch}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,28px) clamp(14px,2vw,28px)}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.grid{grid-template-columns:1fr}}
+.work{display:flex;flex-direction:column;gap:12px;background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;cursor:pointer;min-width:0}
+.work .pic{aspect-ratio:3/4;max-width:100%;overflow:hidden;background:var(--ink)}
+.work img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1s cubic-bezier(.2,.7,.2,1),filter .6s}
+.work:hover img,.work:focus-visible img{transform:scale(1.04)}
+.work .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid var(--line);padding-top:10px}
+.work h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(24px,2.2vw,32px);line-height:1;margin:0}
+.work .cap{color:var(--grey);white-space:nowrap}
+
+/* contact */
+.contact{padding-block:clamp(80px,12vw,160px) 40px;border-top:1px solid var(--line)}
+.contact-in{max-width:1400px;margin:0 auto}
+.contact h2{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(64px,14vw,220px);line-height:.82;margin:0 0 36px;text-wrap:balance}
+.me{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.me img{width:clamp(84px,9vw,120px);aspect-ratio:4/5;height:auto;object-fit:cover;object-position:50% 42%;transform:scale(1);display:block}
+.me div{display:flex;flex-direction:column;gap:4px}
+.mail{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:48px}
+.mail .addr{font-size:clamp(22px,3.4vw,40px);font-weight:500;user-select:all;overflow-wrap:anywhere}
+.btn{font:inherit;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--white);color:var(--black);border:0;padding:12px 16px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.btn.ghost{background:none;color:var(--white);border:1px solid var(--line)}
+.links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line)}
+.links a{display:flex;justify-content:space-between;gap:10px;padding:18px 0;text-decoration:none;border-bottom:1px solid var(--line);min-width:0}
+.links a+a{padding-left:18px;border-left:1px solid var(--line)}
+.links a span:last-child{color:var(--grey)}
+.links a:hover span:first-child{text-decoration:underline}
+@media (max-width:640px){.links{grid-template-columns:1fr}.links a+a{padding-left:0;border-left:0}}
+footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:24px;color:var(--grey);max-width:1400px;margin:0 auto}
+
+/* project view */
+.pv{position:fixed;inset:0;z-index:30;background:var(--black);overflow-y:auto;overscroll-behavior:contain;opacity:0;visibility:hidden;transform:translateY(24px);transition:opacity .45s,transform .45s,visibility 0s .45s}
+.pv.light{--black:#fafaf8;--white:#0a0a0a;--grey:#6b6b68;--line:#dddcd7;--ink:#ecebe6;color:var(--white);color-scheme:light}
+.pv{color:var(--white)}
+.pv.open{opacity:1;visibility:visible;transform:none;transition:opacity .45s,transform .45s,visibility 0s}
+.pv-bar{position:sticky;top:0;z-index:2;background:var(--black);padding-top:env(safe-area-inset-top,0px);border-bottom:1px solid var(--line)}
+.pv-bar>div{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px}
+.pv-bar .cap{color:var(--grey)}
+.pv-in{max-width:1400px;margin:0 auto}
+.pv-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(24px,4vw,64px);align-items:end;padding-block:clamp(32px,5vw,64px) 40px}
+.pv-hero.vert{grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr)}
+.pv h2{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(56px,9vw,150px);line-height:.85;margin:10px 0 20px;overflow-wrap:anywhere}
+.pv .kind{color:var(--grey)}
+.pfacts{display:flex;gap:28px;flex-wrap:wrap}
+.pfacts div{display:flex;flex-direction:column;gap:2px}
+.pfacts span{color:var(--grey)}
+.pfacts b{font-family:var(--display);font-weight:400;font-size:28px;line-height:1}
+.film{position:relative;display:block;max-width:100%;overflow:hidden;background:#000;border:0;padding:0;cursor:pointer;color:inherit;font:inherit}
+.film img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1s}
+.film:hover img{transform:scale(1.03)}
+.film iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.film .btn{position:absolute;left:16px;bottom:16px}
+.pv-hero:not(.vert) .film{aspect-ratio:16/9}
+.pv-hero.vert .film{aspect-ratio:9/16;height:min(78vh,700px);width:auto;justify-self:center}
+.pv-body{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,5vw,80px);border-top:1px solid var(--line);padding-block:40px}
+.pv-body .col{display:flex;flex-direction:column;gap:14px;min-width:0}
+.pv-body h3{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin:18px 0 0;color:var(--grey)}
+.pv-body h3:first-child{margin-top:0}
+.pv-body p{margin:0;max-width:62ch}
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(8px,1.2vw,16px);padding-bottom:40px}
+.gallery figure{margin:0;overflow:hidden;background:var(--ink)}
+.gallery figure.w{grid-column:1/-1}
+.gallery img{display:block;width:100%;height:auto}
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;width:100%;border:0;border-top:1px solid var(--line);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;padding-block:28px 56px}
+.next b{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(44px,7vw,100px);line-height:.9;overflow-wrap:anywhere}
+.next .cap{color:var(--grey)}
+
+.pv-head{padding-block:clamp(32px,5vw,64px) clamp(24px,3vw,40px);border-bottom:1px solid var(--line);margin-bottom:clamp(24px,3vw,40px)}
+.pv-in{display:flex;flex-direction:column;gap:clamp(12px,1.6vw,20px)}
+.tx{max-width:68ch;padding-block:clamp(16px,2.4vw,32px);display:flex;flex-direction:column;gap:12px}
+.tx h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(32px,4vw,56px);line-height:.95;margin:8px 0 4px}
+.tx h4{margin:4px 0 0;color:var(--grey)}
+.tx p{margin:0}
+.vid{position:relative;width:100%;aspect-ratio:auto;background:#000}
+.vid::before{content:"";display:block;padding-bottom:var(--r)}
+.vid.vert{width:min(100%,calc(80vh * 100 / var(--rn,177.78)));max-width:460px;margin-inline:auto}
+.vid>*{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vbtn{padding:0;border:0;background:#000;cursor:pointer;color:inherit;font:inherit}
+.vbtn img{width:100%;height:100%;object-fit:cover;display:block}
+.vbtn .btn{position:absolute;left:16px;bottom:16px}
+.row-m{display:flex;gap:clamp(8px,1.2vw,16px);align-items:flex-start}
+.row-m figure{margin:0;min-width:0;background:var(--ink)}
+.row-m img{display:block;width:100%;height:auto}
+@media (max-width:600px){.row-m{flex-wrap:wrap}.row-m figure{flex-basis:100%!important}}
+
+@media (max-width:860px){.pv-hero,.pv-hero.vert,.pv-body{grid-template-columns:1fr}.pv-hero.vert .film{height:auto;width:100%}}
+
+/* heading fit */
+.fit{display:block;white-space:nowrap!important;text-wrap:nowrap!important;line-height:1.02!important;word-spacing:.08em;letter-spacing:.005em}
+.fit.wrap{white-space:normal!important;text-wrap:balance!important}
+.tx h3,.pv h2,.works-head h2,.contact h2,.next b,.work h3{line-height:1.02;word-spacing:.08em}
+.tx h3{margin:12px 0 6px}
+.works-head h2{flex:1 1 100%;min-width:0;width:100%}
+.work .row h3{flex:1 1 auto;min-width:0}
+.work .row .cap{white-space:normal;text-align:right;flex:0 1 auto;max-width:45%}
+.next{flex-wrap:wrap}.next b{flex:1 1 100%;min-width:0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.band{clip-path:none}}
+</style>
+</head>
+<body>
+
+
+<div class="corner g">
+  <a href="#top" class="cap">R — C</a>
+  <span class="soc"><a href="https://www.instagram.com/rewenycreates/" target="_blank" rel="noopener" aria-label="Instagram @rewenycreates"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"/><circle cx="12" cy="13" r="3.6"/><path d="M8 6l1.5-2h5L16 6"/></svg></a><a href="https://www.linkedin.com/in/ahmed-el-rewany-9332a9141" target="_blank" rel="noopener" aria-label="LinkedIn, Ahmed El Reweny"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.8-3.8 3.9-6 7.5-6s6.7 2.2 7.5 6"/></svg></a></span>
+</div>
+
+<main id="top">
+  <section class="open" id="opener" aria-label="Reweny">
+    <div class="open-sticky">
+      <h1 class="name">Reweny</h1>
+      <div class="open-foot g">
+        <a class="cap" href="https://www.instagram.com/rewenycreates/" target="_blank" rel="noopener">Instagram</a>
+        <p class="cap"><span class="sub">AI Film Director · Cairo</span>Short films, commercials and campaigns made with generative AI, directed like cinema</p>
+        <a class="cap" href="#contact">Email me</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="about g" id="about">
+    <div class="about-in">
+      <span class="cap">About Ahmed El Reweny</span>
+      <div>
+        <p class="lead">Editor first. Art director always. <span>Twelve years in editing rooms, art direction and post production, now directing films with AI the way a crew would: script, cast, frame, cut.</span></p>
+        <div class="facts">
+          <div><b>12+</b><span class="cap">Years in post</span></div>
+          <div><b>12</b><span class="cap">Films &amp; campaigns</span></div>
+          <div><b>MENA</b><span class="cap">&amp; worldwide</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marq" aria-hidden="true"><div>Ahmed El Reweny • AI Film Director • Ahmed El Reweny • AI Film Director •&nbsp;</div></div>
+
+  <section class="works g" id="work">
+    <div class="works-in">
+      <div class="works-head"><h2>Selected Works (2026)</h2><p>Films, commercials and campaigns for brands across the Gulf and beyond.</p></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="contact g" id="contact">
+    <div class="contact-in">
+      <h2>Let's work together</h2>
+      <div class="mail">
+        <span class="addr" id="addr">hello@rewenycreates.com</span>
+        <button type="button" class="btn" id="copy">Copy email</button>
+        <span class="cap" id="copied" aria-live="polite"></span>
+      </div>
+      <div class="links cap">
+        <a href="https://www.instagram.com/rewenycreates/" target="_blank" rel="noopener"><span class="li"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"/><circle cx="12" cy="13" r="3.6"/><path d="M8 6l1.5-2h5L16 6"/></svg>Instagram @rewenycreates</span><span>↗</span></a>
+        <a href="https://www.linkedin.com/in/ahmed-el-rewany-9332a9141" target="_blank" rel="noopener"><span class="li"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.8-3.8 3.9-6 7.5-6s6.7 2.2 7.5 6"/></svg>LinkedIn</span><span>↗</span></a>
+        
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="g cap"><span>© 2026 Reweny Creates</span><span>Directed in Cairo</span></footer>
+
+<div class="pv" id="pv" role="dialog" aria-modal="true" aria-labelledby="pvTitle" aria-hidden="true">
+  <div class="pv-bar g"><div><span class="cap" id="pvCrumb"></span><button type="button" class="btn ghost" id="pvClose">Close ✕</button></div></div>
+  <div class="g"><div class="pv-in" id="pvInner"></div></div>
+</div>
+
+<script>
+const P=[{"slug": "dead-man-walking-utopia", "t": "Dead Man Walking", "kind": "Short film", "cat": "film", "yr": null, "url": "https://rewenycreates.com/dead-man-walking-utopia", "cover": "img/dead-man-walking-utopia-cover.webp", "blocks": [{"t": "x", "i": [["main-text", "A 66 second spy short. A CIA operative and a Japanese intelligence officer, one meeting in the dark. Private screening, password available on request."]]}]}, {"slug": "grandma-getaway-1", "t": "Grandma Getaway", "kind": "Applaws · Commercial", "cat": "ad", "yr": "2026", "url": "https://rewenycreates.com/grandma-getaway-1", "cover": "img/grandma-getaway-1-cover.webp", "vimeo": "https://vimeo.com/1219044860/6c02f810a4", "dur": 74, "poster": "img/grandma-getaway-1-poster.webp", "vert": false, "blocks": [{"t": "v", "id": "1219044860", "h": "6c02f810a4", "r": 56.25, "p": "full/v1219044860.webp", "d": 74}, {"t": "x", "i": [["title", "GRANDMA GETAWAY — APPLAWS"], ["main-text", "A punk reaches for a grandma's handbag on the London Underground — and her cat, raised on Applaws, goes full ninja on him. Every pet food ad promises energy. This one show what that energy is for. She feeds him well; he pays it back."], ["main-text", "Not all bodyguards wear suits. Some have whiskers."]]}, {"t": "m", "n": 1, "im": [["full/grandma-getaway-1-01.webp", 3840, 2143], ["full/grandma-getaway-1-02.webp", 1920, 1071], ["full/grandma-getaway-1-03.webp", 1920, 1071]]}]}, {"slug": "boustan", "t": "Boustan", "kind": "40th Anniversary · Commercial", "cat": "ad", "yr": "2026", "url": "https://rewenycreates.com/boustan", "cover": "img/boustan-cover.webp", "vimeo": "https://vimeo.com/1219049736/df583085e2", "dur": 71, "poster": "img/boustan-poster.webp", "vert": false, "blocks": [{"t": "v", "id": "1219049736", "h": "df583085e2", "r": 56.25, "p": "full/v1219049736.webp", "d": 71}, {"t": "x", "i": [["title", "BOUSTAN — 40TH ANNIVERSARY"], ["main-text", "A 60-second anniversary film for the Montreal Lebanese restaurant chain, built around a single dinner: three friends — a hockey player, a photographer, and the foodie who organizes them — go from an afternoon group chat to a table full of Boustan at 7 PM."], ["main-text", "The turn comes when a pop-up reveals the anniversary offers mid-order, then Maya's father walks in having already ordered. He's 40 years old, so he got 40% off and a free wrap. He wins."], ["main-text", "Cinematic 3D from Sainte-Catherine Ouest down to the balcony, closing on a Boustan balloon drifting out over Montreal as fireworks bloom in brand green and pink."], ["main-text", "Boustan. 40 years. Everyone has a reason to celebrate."]]}, {"t": "x", "i": [["title", "BOUSTAN STUFF — CHARACTER SHEETS"], ["main-text", "Full production model sheets for every character in the film: four-view turnarounds plus close-up portrait, on clean white, in a stylized 3D style with real fabric weave, hair groom, and material detail. Each is developed in both their story wardrobe and their branded uniform."]]}, {"t": "m", "n": 1, "im": [["full/boustan-01.webp", 3840, 2143], ["full/boustan-02.webp", 3840, 2143], ["full/boustan-03.webp", 3840, 2160], ["full/boustan-04.webp", 3840, 2143], ["full/boustan-05.webp", 3840, 2143], ["full/boustan-06.webp", 3840, 2143], ["full/boustan-07.webp", 3840, 2143]]}, {"t": "x", "i": [["title", "The Friends"], ["main-text", "Maya — the foodie who organizes everyone. Curly brown hair, ice-cream cone earrings, blue shirt over a white tee and jeans. Also sheeted in her yellow knit lounge set and holding her phone, the device that starts the whole dinner."], ["main-text", "Tyler — the hockey player. Big open grin, red button-up over a white tee, cargo shorts and red high-tops. Also sheeted in full Team Canada gear with stick, helmet, and puck."], ["main-text", "Arjun — the photographer. Glasses, beaded turquoise necklace, rust linen set. Also sheeted in a crisp white shirt and grey trousers for the office."], ["main-text", "The Father — calm, confident, one step ahead. Navy shirt, dark trousers, greying beard. The man who already ordered."]]}, {"t": "m", "n": 1, "im": [["full/boustan-08.webp", 1920, 1080], ["full/boustan-09.webp", 3840, 2143], ["full/boustan-10.webp", 3840, 2143], ["full/boustan-11.webp", 3840, 2143], ["full/boustan-12.webp", 3840, 2143], ["full/boustan-13.webp", 3840, 2143], ["full/boustan-14.webp", 3840, 2143], ["full/boustan-15.webp", 3840, 2143]]}]}, {"slug": "claw-game", "t": "Claw", "kind": "Character film", "cat": "film", "yr": "2026", "url": "https://rewenycreates.com/claw-game", "cover": "img/claw-game-cover.webp", "vimeo": "https://vimeo.com/1219011271/c419f9adda", "dur": 64, "poster": "img/claw-game-poster.webp", "vert": true, "blocks": [{"t": "v", "id": "1219011271", "h": "c419f9adda", "r": 177.78, "p": "full/v1219011271.webp", "d": 64}, {"t": "x", "i": [["title", "The challenge"], ["main-text", "Take a 1997 game built from coarse, low-resolution pixel sprites — a few hundred pixels of hand-drawn art per character — and rebuild it as cinematic film-grade imagery. Every character had to be reconstructed from tiny pixelated source artwork into fully realized 3D designs with real fur, fabric and lighting, while staying true enough that anyone who played it recognizes them instantly."]]}, {"t": "m", "n": 1, "im": [["full/claw-game-01.webp", 1466, 1090]]}, {"t": "x", "i": [["title", "CAPTAIN CLAW"], ["main-text", "Four rival commanders standing against the crew: a grey wolf general in a violet frock coat with rapier drawn, a red-caped sword cat with rope and blade at her hip, a crowned amphibian brute with a tentacle crest, and a purple-coated pirate dog captain under a plumed tricorne. Each developed as a full four-view turnaround with feature-quality fur, fabric and leather detail, unified by a royal purple, crimson and brass gold palette."]]}, {"t": "m", "n": 1, "im": [["full/claw-game-02.webp", 3840, 2143], ["full/claw-game-03.webp", 3840, 2143]]}, {"t": "x", "i": [["title", "CLAW — The Bosses"], ["main-text", "Four rival commanders standing against the crew: a grey wolf general in a violet frock coat with rapier drawn, a red-caped sword cat with rope and blade at her hip, a crowned amphibian brute with a tentacle crest, and a purple-coated pirate dog captain under a plumed tricorne. Each developed as a full four-view turnaround with feature-quality fur, fabric and leather detail, unified by a royal purple, crimson and brass gold palette."]]}, {"t": "m", "n": 1, "im": [["full/claw-game-04.webp", 3840, 2143], ["full/claw-game-05.webp", 3840, 2143], ["full/claw-game-06.webp", 3840, 2143], ["full/claw-game-07.webp", 3840, 2143], ["full/claw-game-08.webp", 3840, 2143]]}]}, {"slug": "professor-vs-bank", "t": "Professor vs Bank", "kind": "Narrative series", "cat": "film", "yr": "2025", "url": "https://rewenycreates.com/professor-vs-bank", "cover": "img/professor-vs-bank-cover.webp", "vimeo": "https://vimeo.com/1123149737/2b49d237c2", "dur": 16, "poster": "img/professor-vs-bank-poster.webp", "vert": true, "blocks": [{"t": "v", "id": "1123121767", "h": null, "r": 92.86, "p": "full/v1123121767.webp", "d": 2}, {"t": "v", "id": "1123122417", "h": "37fb53e28c", "r": 35.71, "p": "full/v1123122417.webp", "d": 3}, {"t": "v", "id": "1123149737", "h": "2b49d237c2", "r": 177.78, "p": "full/v1123149737.webp", "d": 16}, {"t": "x", "i": [["title", "The Professor"], ["main-text", "Frank was a trusted banker for over ten years, known as the sharpest Relationship Manager handling elite private clients. His downfall began when he uncovered suspicious behavior from a powerful top one percent client. Offered money to stay silent, he refused. Before he could file the report, the bank terminated him to protect their interests."]]}, {"t": "m", "n": 1, "im": [["full/professor-vs-bank-01.webp", 1600, 989]]}, {"t": "x", "i": [["title", "The Story"], ["main-text", "With the help of his partner Monica from Human Resources, Frank quietly reconnected with former employees and overlooked insiders who had been pushed out like him. Together, they built a trusted network of outcasts, sharing information and uncovering patterns the system tried to hide. What started as isolated cases evolved into a unified front, standing against the institution that once silenced them."]]}, {"t": "v", "id": "1123119687", "h": "f49e1bcc4a", "r": 57.14, "p": "full/v1123119687.webp", "d": 3}, {"t": "v", "id": "1123117284", "h": "c477e0d802", "r": 57.14, "p": "full/v1123117284.webp", "d": 2}, {"t": "v", "id": "1123213979", "h": null, "r": 50.0, "p": "full/v1123213979.webp", "d": 3}, {"t": "v", "id": "1123483505", "h": "4bbe8069cc", "r": 50.0, "p": "full/v1123483505.webp", "d": 4}, {"t": "v", "id": "1123141178", "h": null, "r": 57.14, "p": "full/v1123141178.webp", "d": 1}, {"t": "v", "id": "1123141192", "h": null, "r": 57.14, "p": "full/v1123141192.webp", "d": 9}, {"t": "v", "id": "1123141224", "h": null, "r": 57.14, "p": "full/v1123141224.webp", "d": 3}, {"t": "v", "id": "1123486667", "h": "5a04d12187", "r": 75.0, "p": "full/v1123486667.webp", "d": 2}]}, {"slug": "okhtein", "t": "OKHTEIN", "kind": "Fashion campaign", "cat": "ad", "yr": "2026", "url": "https://rewenycreates.com/okhtein", "cover": "img/okhtein-cover.webp", "vimeo": "https://vimeo.com/1219032421/ae570d198d", "dur": 24, "poster": "img/okhtein-poster.webp", "vert": false, "blocks": [{"t": "x", "i": [["title", "The Concept"], ["main-text", "OKHTEIN builds with Egypt's history rather than decorating with it — oak and engraved brass carrying heritage into a shape no Egyptian brand has shown the world before. Pride here isn't only pharaohs and pyramids; it's a country that still shows up and still competes on any stage."]]}, {"t": "v", "id": "1219032421", "h": "ae570d198d", "r": 56.25, "p": "full/v1219032421.webp", "d": 24}, {"t": "x", "i": [["title", "The Project"], ["main-text", "An AI-generated campaign for OKHTEIN's Oak on Engraved Brass line, fronted by Sandra Shehab cast through a real hands-on search rather than generated. Covering the concept, the casting, the product photography, and the OKA teaser. Proof that as AI tools sharpen, vision and art direction are still what make a campaign its own."]]}, {"t": "m", "n": 1, "im": [["full/okhtein-01.webp", 3840, 2143], ["full/okhtein-02.webp", 1920, 1080]]}, {"t": "x", "i": [["title", "The Face of the Campaign"], ["main-text", "Sandra Shehab — cast through a real, hands-on search for the one face that fits the brand and this theme, not a generative output. She competed on Cycle 24 of America's Next Top Model in 2018, making history as the first Egyptian-American woman to advance as a finalist on the show, with host Tyra Banks calling her features stunning. Styled here in OKHTEIN's Oak on Engraved Brass line."]]}, {"t": "m", "n": 2, "im": [["full/okhtein-03.webp", 1536, 2752], ["full/okhtein-04.webp", 1536, 2752], ["full/okhtein-05.webp", 1536, 2752], ["full/okhtein-06.webp", 1536, 2752], ["full/okhtein-07.webp", 1536, 2752], ["full/okhtein-08.webp", 1536, 2752], ["full/okhtein-09.webp", 1536, 2752], ["full/okhtein-10.webp", 1536, 2752], ["full/okhtein-11.webp", 1536, 2752], ["full/okhtein-12.webp", 1536, 2752], ["full/okhtein-13.webp", 1536, 2752], ["full/okhtein-14.webp", 1536, 2752], ["full/okhtein-15.webp", 1536, 2752], ["full/okhtein-16.webp", 1536, 2752], ["full/okhtein-17.webp", 1536, 2752], ["full/okhtein-18.webp", 1536, 2752], ["full/okhtein-19.webp", 1536, 2752], ["full/okhtein-20.webp", 1536, 2752]]}, {"t": "x", "i": [["title", "The Bag — Oak on Engraved Brass"], ["main-text", "In OKHTEIN's own words: the Oak on Brass bag draws from the half-moon shape, a form that carries real weight in Egyptian culture — marking changing seasons, ebb and tide. It's handcrafted in leather with a gold-tone brass spike handle, chain strap, and hardware accents. OKHTEIN INT"]]}, {"t": "m", "n": 2, "im": [["full/okhtein-21.webp", 768, 1376], ["full/okhtein-22.webp", 1536, 2752], ["full/okhtein-23.webp", 1536, 2752], ["full/okhtein-24.webp", 1536, 2752], ["full/okhtein-25.webp", 1536, 2752]]}]}, {"slug": "asics-x-atmos-vandythepink", "t": "ASICS x atmos", "kind": "VANDYTHEPINK · Reel", "cat": "ad", "yr": "2026", "url": "https://rewenycreates.com/asics-x-atmos-vandythepink", "cover": "img/asics-x-atmos-vandythepink-cover.webp", "vimeo": "https://vimeo.com/1219292430", "dur": 19, "poster": "img/asics-x-atmos-vandythepink-poster.webp", "vert": true, "blocks": [{"t": "x", "i": [["title", "Create the Impossible Reel"], ["main-text", "An AI/CGI concept that transforms a simple product reveal into an impossible visual moment. The reel opens with a close-up of a branded ice cream machine serving the store’s signature vanilla flavor. As the handle is pulled, the ice cream slowly falls to the ground and seamlessly transforms into the complete shoe, revealing the final product through a surreal transformation."]]}, {"t": "v", "id": "1219292430", "h": null, "r": 177.78, "p": "full/v1219292430.webp", "d": 19}, {"t": "x", "i": [["title", "THE PROCESS"], ["main-text", "The transformation wouldn't hold on its own, so I broke it into a sequence the model could actually learn. I started with the shoe rendered in glass, a transparent shell that told the AI exactly where the volume lived and what needed filling. Then the same shoe built from ice cream, showing what the material should look like once it filled that shell. Then the real shoe, the target every frame had to resolve toward. Glass, ice cream, real, in that order, each stage teaching the model a different part of the problem: the shape, the substance, the destination. I ran each generation back through Claude, analyzing what worked and what broke, refining the direction shot by shot until the transformation landed clean. The tools don't know how to do this. You have to teach them, one frame, one correction, one pass at a time."]]}, {"t": "m", "n": 1, "im": [["full/asics-x-atmos-vandythepink-01.webp", 1600, 893]]}]}, {"slug": "sublue-ksa", "t": "Sublue", "kind": "Saudi Arabia · Campaign", "cat": "social", "yr": "2026", "url": "https://rewenycreates.com/sublue-ksa", "cover": "img/sublue-ksa-poster.webp", "vimeo": "https://vimeo.com/1219301770/93ab7f74a0", "dur": 18, "poster": "img/sublue-ksa-poster.webp", "vert": true, "blocks": [{"t": "x", "i": [["title", "SUBLUE SAUDI ARABIA"], ["main-text", "Ongoing content work for Sublue, the underwater scooter brand, across key visuals, carousels and reel concepts built around a single question: how do you make people feel what these machines actually do? The work spans cinematic key visuals including a Saudi diwaniya staged on the seabed and a falcon soaring above water mirroring a rider gliding below, narrative reels contrasting Gulf pearl diving heritage with the technology that replaced it, and product led social pieces covering trunk fit carousels, a mother handing a scooter over the pool edge to her son, and a battery charging on a nightstand beside a phone. Every asset is built with full product accuracy against reference, environmental integration so nothing reads pasted, and a consistent cinematic grade across the entire range."]]}, {"t": "m", "n": 1, "im": [["full/sublue-ksa-01.webp", 1600, 2000]]}, {"t": "x", "i": [["title", "UNDERWATER DIWANIYA"], ["main-text", "The goal was to place Sublue inside Saudi social life rather than beside it. A diwaniya is where Saudi men actually gather, the carpet, the dallah, the finjans, the unhurried conversation. Staging one on the seabed says the sea isn't a separate world you visit with gear, it's somewhere the same rituals can live, and the machines parked within arm's reach of each man read as things you bring along rather than equipment you suit up for. The carousel then opens out into the full range on display, so the cultural moment carries the product lineup instead of the lineup standing on its own."]]}, {"t": "m", "n": 1, "im": [["full/sublue-ksa-02.webp", 1600, 667]]}, {"t": "x", "i": [["title", "RUBBER DUCK"], ["main-text", "The goal was to make the Sublue feel like play rather than equipment. Most underwater scooter content sells specs and performance; this reel argues the opposite, that the water is the same water you've splashed in since you were a kid and the only thing that's changed is the toy you take in with you. The rubber duck carries that whole idea in one object, and the unbroken descent from the surface to the machine below makes the connection without ever having to explain it."]]}, {"t": "v", "id": "1219301770", "h": "93ab7f74a0", "r": 177.78, "p": "full/v1219301770.webp", "d": 18}, {"t": "x", "i": [["title", "PEARL DIVING"], ["main-text", "The goal was to root the brand in Saudi heritage rather than import it. Pearl diving is where the Gulf's relationship with the sea began, generations of men descending on a single breath with a stone in hand. The reel places the Sublue at the end of that lineage instead of outside it, so the technology reads as the newest chapter of something old rather than a foreign product arriving in local water. Same sea, same descent, a different way of returning to it."]]}, {"t": "v", "id": "1219302930", "h": null, "r": 177.78, "p": "full/v1219302930.webp", "d": 12}, {"t": "x", "i": [["title", "Desert to Underwater"], ["main-text", "A man wakes up in the heart of the Saudi desert. By morning he's driving hard across the dunes, dust behind him, the horizon open. By midday the sand turns to shoreline. He parks, pulls a Sublue Navbow from the truck, and walks straight into the Red Sea. He takes a breath at the water's edge, then he's under, gliding along a living reef. One man. One day. Two worlds. The Navbow is what carries him from one to the other. The goal is to show that Saudi Arabia holds both worlds within a single day's reach, and to position Sublue as the bridge between them, the piece of gear that turns a drive into a dive. Adventure, freedom, and the product arriving at the exact moment the story changes."]]}, {"t": "v", "id": "1220363313", "h": "b109754bba", "r": 177.78, "p": "full/v1220363313.webp", "d": 23}]}, {"slug": "pinkberry-passport", "t": "Pinkberry Passport", "kind": "Loyalty experience", "cat": "social", "yr": "2026", "url": "https://rewenycreates.com/pinkberry-passport", "cover": "img/pinkberry-passport-cover.webp", "vimeo": "https://vimeo.com/1184176449/66535b5b8a", "dur": 34, "poster": "img/pinkberry-passport-poster.webp", "vert": false, "blocks": [{"t": "v", "id": "1184228467", "h": "165831634b", "r": 93.75, "p": "full/v1184228467.webp", "d": 10}, {"t": "x", "i": [["title", "Pinkberry Passport Loyalty Experience"], ["main-text", "A loyalty-driven initiative that turns every store visit into a collectible experience. Customers earn a unique flavor stamp with each purchase, and once their 9 square passport page is complete, they unlock a free medium scoop with one add-on. Built to drive repeat visits, social sharing, and a rewarding journey one stamp at a time."]]}, {"t": "v", "id": "1184228494", "h": "779a21dfa4", "r": 26.04, "p": "full/v1184228494.webp", "d": 10}, {"t": "v", "id": "1180822092", "h": null, "r": 56.25, "p": "full/v1180822092.webp", "d": 10}, {"t": "v", "id": "1180818817", "h": null, "r": 56.25, "p": "full/v1180818817.webp", "d": 10}, {"t": "x", "i": [["title", "Activation & Experience"], ["main-text", "A full brand experience built around fun, freedom, and frozen yogurt. From a floating loyalty passport to collectible enamel pins and beach-ready kiosks on Kuwait's beaches, every touchpoint turns a simple froyo craving into a lifestyle moment. Playful merch and sun-soaked settings make Pinkberry not just a treat, but a destination."]]}, {"t": "m", "n": 1, "im": [["full/pinkberry-passport-01.webp", 1600, 900]]}, {"t": "v", "id": "1180975776", "h": "ea8aeb5a4d", "r": 56.25, "p": "full/v1180975776.webp", "d": 5}, {"t": "m", "n": 1, "im": [["full/pinkberry-passport-02.webp", 1600, 900]]}, {"t": "m", "n": 1, "im": [["full/pinkberry-passport-03.webp", 1600, 900]]}, {"t": "x", "i": [["title", "Pinkberry Passport"], ["main-text", "it's your official ticket to a world of frozen yogurt adventures. Pick it up at any branch, earn a stamp with every cup, fill your page and unlock a free medium scoop. The more you explore, the more you earn."]]}, {"t": "v", "id": "1184218208", "h": "18ad88593e", "r": 56.25, "p": "full/v1184218208.webp", "d": 13}, {"t": "x", "i": [["title", "The Flavor Journey"], ["main-text", "Jump into a flavorful adventure where every detail is crafted to your taste. Each flavor becomes part of your journey, captured through the Pinkberry passport, delivered from the sky into your hands to begin a collectible, rewarding experience."]]}, {"t": "v", "id": "1184176449", "h": "66535b5b8a", "r": 56.25, "p": "full/v1184176449.webp", "d": 34}, {"t": "v", "id": "1181388161", "h": "7fa46809b1", "r": 56.25, "p": "full/v1181388161.webp", "d": 10}]}, {"slug": "grandma-getaway", "t": "MIMO Soda", "kind": "Summer campaign", "cat": "ad", "yr": "2026", "url": "https://rewenycreates.com/grandma-getaway", "cover": "img/grandma-getaway-cover.webp", "vimeo": "https://vimeo.com/1218695777/38ea50ff8e", "dur": 37, "poster": "img/grandma-getaway-poster.webp", "vert": false, "blocks": [{"t": "v", "id": "1218695777", "h": "38ea50ff8e", "r": 56.25, "p": "full/v1218695777.webp", "d": 37}, {"t": "x", "i": [["title", "MIMO: Taste the Good Times"], ["main-text", "A vibrant lifestyle photoshoot capturing friendship, freedom and MIMO’s bold flavors through playful, sun-soaked beach moments."]]}, {"t": "m", "n": 2, "im": [["full/grandma-getaway-01.webp", 3840, 5120], ["full/grandma-getaway-02.webp", 3840, 5120], ["full/grandma-getaway-03.webp", 3840, 5120], ["full/grandma-getaway-04.webp", 3840, 5120], ["full/grandma-getaway-05.webp", 3840, 5120], ["full/grandma-getaway-06.webp", 3840, 5120], ["full/grandma-getaway-07.webp", 3840, 5120], ["full/grandma-getaway-08.webp", 3840, 5120], ["full/grandma-getaway-09.webp", 3840, 5120], ["full/grandma-getaway-10.webp", 3840, 5120], ["full/grandma-getaway-11.webp", 3840, 5120], ["full/grandma-getaway-12.webp", 3840, 5120]]}, {"t": "x", "i": [["title", "Character Design & Model Sheets"], ["main-text", "A visual development system defining the cast, wardrobe, expressions and key props to maintain consistency across every campaign scene."]]}, {"t": "m", "n": 1, "im": [["full/grandma-getaway-13.webp", 1920, 1071], ["full/grandma-getaway-14.webp", 1920, 1071], ["full/grandma-getaway-15.webp", 1920, 1071], ["full/grandma-getaway-16.webp", 1920, 1071], ["full/grandma-getaway-17.webp", 1920, 1071], ["full/grandma-getaway-18.webp", 1920, 1071], ["full/grandma-getaway-19.webp", 1920, 1071], ["full/grandma-getaway-20.webp", 1920, 1071], ["full/grandma-getaway-21.webp", 1920, 1071]]}]}, {"slug": "sociabl", "t": "Sociabl", "kind": "Offsite film", "cat": "social", "yr": "2026", "url": "https://rewenycreates.com/sociabl", "cover": "img/sociabl-cover.webp", "vimeo": "https://vimeo.com/1219041778/0b8db6de53", "dur": 37, "poster": "img/sociabl-poster.webp", "vert": false, "blocks": [{"t": "x", "i": [["title", "SOCIABL — OFFSITE FILM"], ["main-text", "Turn the agency into its own cast. Every team member becomes a stylized 3D character — caricatured proportions, real material detail, each carrying the tools of their craft."], ["main-text", "Instead of the usual year-in-review montage, the film puts the room itself on screen. People watch their own colleagues walk in as characters, and the recognition does the work. Warm, funny, and crafted enough that everyone screenshots their own likeness."]]}, {"t": "v", "id": "1219041778", "h": "0b8db6de53", "r": 56.25, "p": "full/v1219041778.webp", "d": 37}, {"t": "x", "i": [["title", "CHARACTER SHEETS — SOCIABL Team"], ["main-text", "A cast of stylized 3D employee characters built as full production model sheets — front, side, back, and close-up portrait for each, on clean white."], ["main-text", "The team: the art director in a black leather jacket and wire-frame glasses, the boss in a tailored pink suit, the photographer in a branded bucket hat with a Sony body slung at his chest, the illustrator in a printed hijab and green dress with her tablet and stylus, and the social lead in an orange varsity jacket and branded cap."], ["main-text", "Caricatured proportions with real material detail — leather grain, denim stitching, fabric weave, individual hair strands. Branded uniform elements tie the cast together while each character carries the tools of their role."]]}, {"t": "m", "n": 1, "im": [["full/sociabl-01.webp", 1920, 1071], ["full/sociabl-02.webp", 1920, 1071], ["full/sociabl-03.webp", 1920, 1071], ["full/sociabl-04.webp", 1920, 1071], ["full/sociabl-05.webp", 1920, 1071], ["full/sociabl-06.webp", 3840, 2143], ["full/sociabl-07.webp", 1920, 1071], ["full/sociabl-08.webp", 3840, 2143], ["full/sociabl-09.webp", 1920, 1080], ["full/sociabl-10.webp", 3840, 2143]]}]}, {"slug": "gulf-bank-red-youth-account", "t": "Gulf Bank red", "kind": "Youth account · 360", "cat": "social", "yr": "2026", "url": "https://rewenycreates.com/gulf-bank-red-youth-account", "cover": "img/gulf-bank-red-youth-account-cover.webp", "vimeo": "https://vimeo.com/1172374008/921a4b1459", "dur": 6, "poster": "img/gulf-bank-red-youth-account-poster.webp", "vert": false, "blocks": [{"t": "m", "n": 1, "im": [["full/gulf-bank-red-youth-account-01.webp", 1600, 1235]]}, {"t": "v", "id": "1172374008", "h": "921a4b1459", "r": 62.5, "p": "full/v1172374008.webp", "d": 6}, {"t": "x", "i": [["title", "Icon System"], ["main-text", "A minimal monoline icon system built on clean geometry, consistent stroke weight, and rounded forms. Each icon is simplified to its essential shape while maintaining clarity, aligned on a strict grid for uniformity and strong visual consistency."]]}, {"t": "v", "id": "1182312373", "h": "f37f91a28b", "r": 57.29, "p": "full/v1182312373.webp", "d": 8}, {"t": "m", "n": 1, "im": [["full/gulf-bank-red-youth-account-02.webp", 1600, 2357]]}, {"t": "x", "i": [["title", "red Educational 360 Campaign"], ["main-text", "A 360 educational campaign showcasing the full ecosystem of red benefits for youth across social platforms. Built on two directions, a collage approach for dynamic, personal storytelling and a geometric split system for clarity and structure, turning everyday moments like petrol, cinema, cashback, and lifestyle offers into bold, culturally relevant content that makes the value of red instantly clear."]]}, {"t": "v", "id": "1172647343", "h": "448b21627d", "r": 62.5, "p": "full/v1172647343.webp", "d": 5}, {"t": "x", "i": [["title", "The Goal"], ["main-text", "Build awareness and understanding among youth by clearly communicating the wide range of red benefits, from free fuel and cinema discounts to cashback and rewards points, while driving adoption and everyday usage of the card."]]}, {"t": "m", "n": 1, "im": [["full/gulf-bank-red-youth-account-03.webp", 1600, 1042]]}, {"t": "m", "n": 1, "im": [["full/gulf-bank-red-youth-account-04.webp", 1600, 1083]]}, {"t": "v", "id": "1172359106", "h": "e1e94c0d1f", "r": 67.71, "p": "full/v1172359106.webp", "d": 5}, {"t": "m", "n": 1, "im": [["full/gulf-bank-red-youth-account-05.webp", 1600, 1083]]}, {"t": "m", "n": 1, "im": [["full/gulf-bank-red-youth-account-06.webp", 1600, 1083]]}]}];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const rt=s=>s?`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`:"";
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// works
+const grid=document.getElementById("grid");
+P.forEach(p=>{const b=document.createElement("button");b.type="button";b.className="work";b.setAttribute("aria-label","Open "+p.t);
+  b.innerHTML=`<div class="pic"><img src="${p.cover}" alt="" loading="lazy"></div><div class="row"><h3>${esc(p.t)}</h3><span class="cap">${esc(p.kind.split(" · ").pop())}</span></div>`;
+  b.onclick=()=>openP(p.slug);grid.appendChild(b)});
+
+// project view
+const pv=document.getElementById("pv"),pvInner=document.getElementById("pvInner");let lastFocus=null;
+function openP(slug){const i=P.findIndex(p=>p.slug===slug);if(i<0)return;const p=P[i],n=P[(i+1)%P.length];pv.classList.toggle("light",p.slug!=="professor-vs-bank");
+  const blocks=p.blocks.map((b,k)=>{
+    if(b.t==="x")return `<div class="tx">${b.i.map(([c,x])=>c==="title"?`<h3>${esc(x)}</h3>`:c==="sub-title"?`<h4 class="cap">${esc(x)}</h4>`:`<p>${esc(x).replace(/\n/g,"<br>")}</p>`).join("")}</div>`;
+    if(b.t==="v"){const vert=b.r>100;const main=k===p.blocks.findIndex(x=>x.t==="v");
+      if(!main)return `<div class="vid loop ${vert?"vert":""}" style="--r:${b.r}%;background:#000 url('${b.p}') center/cover"><iframe src="https://player.vimeo.com/video/${b.id}?${b.h?"h="+b.h+"&":""}background=1&autoplay=1&muted=1&loop=1&autopause=0&dnt=1" allow="autoplay; fullscreen" loading="lazy" title="${esc(p.t)} loop"></iframe></div>`;
+      return `<div class="vid ${vert?"vert":""}" style="--r:${b.r}%"><button type="button" class="vbtn" data-id="${b.id}" data-h="${b.h||""}" aria-label="Play film"><img src="${b.p}" alt="" loading="lazy"><span class="btn">▶ Play${b.d?" · "+rt(b.d):""}</span></button></div>`}
+    const rows=[];for(let j=0;j<b.im.length;j+=b.n)rows.push(b.im.slice(j,j+b.n));
+    return rows.map(r=>`<div class="row-m">${r.map(([s,w,h])=>`<figure style="flex:${(w/h).toFixed(4)} 1 0"><img src="${s}" width="${w}" height="${h}" alt="Still from ${esc(p.t)}" loading="lazy"></figure>`).join("")}</div>`).join("")}).join("");
+  pvInner.innerHTML=`<header class="pv-head"><span class="cap kind">${esc(p.kind)}</span><h2 id="pvTitle">${esc(p.t)}</h2>
+    <div class="pfacts">${p.yr?`<div><span class="cap">Year</span><b>${p.yr}</b></div>`:""}${p.dur?`<div><span class="cap">Runtime</span><b>${rt(p.dur)}</b></div>`:""}<div><span class="cap">Role</span><b>Director</b></div></div></header>
+    ${p.slug==="dead-man-walking-utopia"?`<div class="row-m"><figure style="flex:1"><img src="${p.cover}" alt="${esc(p.t)} poster" style="max-height:80vh;width:auto;margin:auto"></figure></div><div class="tx"><p>${esc(p.blocks[0].i[0][1])}</p></div>`:blocks}
+    <button type="button" class="next" id="pvNext"><span class="cap">Next</span><b>${esc(n.t)} →</b></button>`;
+  pvInner.querySelectorAll(".vbtn").forEach(btn=>btn.onclick=()=>{const id=btn.dataset.id,hh=btn.dataset.h;
+    const f=document.createElement("iframe");f.src=`https://player.vimeo.com/video/${id}?${hh?"h="+hh+"&":""}autoplay=1&title=0&byline=0&portrait=0&dnt=1&color=ffffff`;
+    f.allow="autoplay; fullscreen; picture-in-picture";f.allowFullscreen=true;f.title=p.t;btn.replaceWith(f)});
+  document.getElementById("pvNext").onclick=()=>{openP(n.slug);pv.scrollTo({top:0})};
+  document.getElementById("pvCrumb").textContent="Selected works / "+p.t;
+  if(!pv.classList.contains("open")){lastFocus=document.activeElement;pv.classList.add("open");pv.setAttribute("aria-hidden","false");document.body.classList.add("lock")}
+  pv.scrollTop=0;requestAnimationFrame(()=>fitAll(pv));setTimeout(()=>document.getElementById("pvClose").focus(),50);try{history.replaceState(null,"","#"+slug)}catch(e){}}
+function closeP(){pv.classList.remove("open");pv.setAttribute("aria-hidden","true");document.body.classList.remove("lock");try{history.replaceState(null,"","#work")}catch(e){};lastFocus&&lastFocus.focus()}
+document.getElementById("pvClose").onclick=closeP;
+addEventListener("keydown",e=>{if(e.key==="Escape"&&pv.classList.contains("open"))closeP()});
+const h=(location.hash||"").slice(1);if(h&&P.some(p=>p.slug===h))openP(h);
+
+
+// fit headings onto one line
+function fitEl(el,max,min){el.classList.add("fit");el.classList.remove("wrap");let lo=min,hi=max,best=min;
+  el.style.fontSize=max+"px";if(el.scrollWidth<=el.clientWidth+1){return}
+  while(lo<=hi){const m=(lo+hi)>>1;el.style.fontSize=m+"px";if(el.scrollWidth<=el.clientWidth+1){best=m;lo=m+1}else hi=m-1}
+  el.style.fontSize=best+"px";if(el.scrollWidth>el.clientWidth+1)el.classList.add("wrap")}
+function fitAll(root){const W=innerWidth,s=W<600;
+  root.querySelectorAll(".tx h3").forEach(e=>fitEl(e,s?40:56,s?20:26));
+  root.querySelectorAll(".pv h2").forEach(e=>fitEl(e,s?72:150,s?30:44));
+  root.querySelectorAll(".next b").forEach(e=>fitEl(e,s?56:100,s?24:36));
+  root.querySelectorAll(".work h3").forEach(e=>fitEl(e,s?30:32,16));
+  if(root===document){document.querySelectorAll(".works-head h2").forEach(e=>fitEl(e,s?64:120,28));document.querySelectorAll(".contact h2").forEach(e=>fitEl(e,s?72:220,30))}}
+addEventListener("resize",()=>{fitAll(document);if(pv.classList.contains("open"))fitAll(pv)});
+(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>fitAll(document));
+
+// copy email
+document.getElementById("copy").addEventListener("click",()=>{const el=document.getElementById("addr"),o=document.getElementById("copied");
+  const sel=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);o.textContent="Selected, press copy"};
+  try{navigator.clipboard.writeText(el.textContent).then(()=>o.textContent="Copied",sel)}catch(e){sel()}});
+</script>
+
+</body>
+</html>
