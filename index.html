@@ -261,21 +261,18 @@ function openP(slug){const i=P.findIndex(p=>p.slug===slug);if(i<0)return;const p
   const blocks=p.blocks.map((b,k)=>{
     if(b.t==="x")return `<div class="tx">${b.i.map(([c,x])=>c==="title"?`<h3>${esc(x)}</h3>`:c==="sub-title"?`<h4 class="cap">${esc(x)}</h4>`:`<p>${esc(x).replace(/\n/g,"<br>")}</p>`).join("")}</div>`;
     if(b.t==="v"){const vert=b.r>100;const main=k===p.blocks.findIndex(x=>x.t==="v");
-      if(!main)return `<div class="vid loop ${vert?"vert":""}" style="--r:${b.r}%;background:#000 url('${b.p}') center/cover"><iframe src="https://player.vimeo.com/video/${b.id}?${b.h?"h="+b.h+"&":""}background=1&autoplay=1&muted=1&loop=1&autopause=0&dnt=1" allow="autoplay; fullscreen" loading="lazy" title="${esc(p.t)} loop"></iframe></div>`;
-      return `<div class="vid ${vert?"vert":""}" style="--r:${b.r}%"><button type="button" class="vbtn" data-id="${b.id}" data-h="${b.h||""}" aria-label="Play film"><img src="${b.p}" alt="" loading="lazy"><span class="btn">▶ Play${b.d?" · "+rt(b.d):""}</span></button></div>`}
+      if(!main)return `<div class="vid loop ${vert?"vert":""}" style="--r:${b.r}%;background:#000 url('${b.p}') center/cover"><iframe data-src="https://player.vimeo.com/video/${b.id}?${b.h?"h="+b.h+"&":""}background=1&autoplay=1&muted=1&loop=1&autopause=0&playsinline=1&dnt=1" allow="autoplay; fullscreen; picture-in-picture" title="${esc(p.t)} loop"></iframe></div>`;
+      return `<div class="vid main ${vert?"vert":""}" style="--r:${b.r}%;background:#000 url('${b.p}') center/cover"><iframe src="https://player.vimeo.com/video/${b.id}?${b.h?"h="+b.h+"&":""}title=0&byline=0&portrait=0&playsinline=1&dnt=1&color=ffffff" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="${esc(p.t)}"></iframe></div>`}
     const rows=[];for(let j=0;j<b.im.length;j+=b.n)rows.push(b.im.slice(j,j+b.n));
     return rows.map(r=>`<div class="row-m">${r.map(([s,w,h])=>`<figure style="flex:${(w/h).toFixed(4)} 1 0"><img src="${s}" width="${w}" height="${h}" alt="Still from ${esc(p.t)}" loading="lazy"></figure>`).join("")}</div>`).join("")}).join("");
   pvInner.innerHTML=`<header class="pv-head"><span class="cap kind">${esc(p.kind)}</span><h2 id="pvTitle">${esc(p.t)}</h2>
     <div class="pfacts">${p.yr?`<div><span class="cap">Year</span><b>${p.yr}</b></div>`:""}${p.dur?`<div><span class="cap">Runtime</span><b>${rt(p.dur)}</b></div>`:""}<div><span class="cap">Role</span><b>Director</b></div></div></header>
     ${p.slug==="dead-man-walking-utopia"?`<div class="row-m"><figure style="flex:1"><img src="${p.cover}" alt="${esc(p.t)} poster" style="max-height:80vh;width:auto;margin:auto"></figure></div><div class="tx"><p>${esc(p.blocks[0].i[0][1])}</p></div>`:blocks}
     <button type="button" class="next" id="pvNext"><span class="cap">Next</span><b>${esc(n.t)} →</b></button>`;
-  pvInner.querySelectorAll(".vbtn").forEach(btn=>btn.onclick=()=>{const id=btn.dataset.id,hh=btn.dataset.h;
-    const f=document.createElement("iframe");f.src=`https://player.vimeo.com/video/${id}?${hh?"h="+hh+"&":""}autoplay=1&title=0&byline=0&portrait=0&dnt=1&color=ffffff`;
-    f.allow="autoplay; fullscreen; picture-in-picture";f.allowFullscreen=true;f.title=p.t;btn.replaceWith(f)});
   document.getElementById("pvNext").onclick=()=>{openP(n.slug);pv.scrollTo({top:0})};
   document.getElementById("pvCrumb").textContent="Selected works / "+p.t;
   if(!pv.classList.contains("open")){lastFocus=document.activeElement;pv.classList.add("open");pv.setAttribute("aria-hidden","false");document.body.classList.add("lock")}
-  pv.scrollTop=0;requestAnimationFrame(()=>fitAll(pv));setTimeout(()=>document.getElementById("pvClose").focus(),50);try{history.replaceState(null,"","#"+slug)}catch(e){}}
+  pv.scrollTop=0;requestAnimationFrame(()=>{fitAll(pv);watchLoops()});setTimeout(()=>document.getElementById("pvClose").focus(),50);try{history.replaceState(null,"","#"+slug)}catch(e){}}
 function closeP(){pv.classList.remove("open");pv.setAttribute("aria-hidden","true");document.body.classList.remove("lock");try{history.replaceState(null,"","#work")}catch(e){};lastFocus&&lastFocus.focus()}
 document.getElementById("pvClose").onclick=closeP;
 addEventListener("keydown",e=>{if(e.key==="Escape"&&pv.classList.contains("open"))closeP()});
@@ -296,6 +293,13 @@ function fitAll(root){const W=innerWidth,s=W<600;
 addEventListener("resize",()=>{fitAll(document);if(pv.classList.contains("open"))fitAll(pv)});
 (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>fitAll(document));
 
+
+// mount looping videos only near the screen, so phones never run too many players at once
+let loopIO=null;
+function watchLoops(){loopIO&&loopIO.disconnect();
+  loopIO=new IntersectionObserver(es=>es.forEach(e=>{const f=e.target.querySelector("iframe");if(!f)return;
+    if(e.isIntersecting){if(!f.src)f.src=f.dataset.src}else if(f.src){f.removeAttribute("src")}}),{root:pv,rootMargin:"300px 0px"});
+  pv.querySelectorAll(".vid.loop").forEach(v=>loopIO.observe(v))}
 // copy email
 document.getElementById("copy").addEventListener("click",()=>{const el=document.getElementById("addr"),o=document.getElementById("copied");
   const sel=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);o.textContent="Selected, press copy"};
@@ -358,7 +362,7 @@ function animateProject(){
   const h=pvEl.querySelector("#pvTitle");wrapWords(h);
   gsap.from(pvEl.querySelectorAll("#pvTitle .mwi"),{yPercent:110,duration:1,ease:EASE,stagger:.06,delay:.15});
   gsap.from(pvEl.querySelectorAll(".pv-head .kind, .pfacts > div"),{y:16,autoAlpha:0,duration:.8,ease:EASE,stagger:.05,delay:.3});
-  const items=[...pvEl.querySelectorAll(".pv-in > .tx, .pv-in > .vid, .pv-in > .row-m")];
+  const items=[...pvEl.querySelectorAll(".pv-in > .tx, .pv-in > .row-m")];
   items.forEach((el,i)=>{ if(i===0){gsap.from(el,{y:40,autoAlpha:0,duration:1,ease:EASE,delay:.45});return}
     gsap.set(el,{y:50,autoAlpha:0});
     pvTriggers.push(ScrollTrigger.create({trigger:el,scroller:pvEl,start:"top 92%",once:true,onEnter:()=>gsap.to(el,{y:0,autoAlpha:1,duration:1,ease:EASE})}));
@@ -368,7 +372,7 @@ function animateProject(){
 const _openP=openP;
 openP=function(slug){_openP(slug);requestAnimationFrame(animateProject)};
 const _closeP=closeP;
-closeP=function(){pvTriggers.forEach(t=>t.kill());pvTriggers=[];_closeP()};
+closeP=function(){loopIO&&loopIO.disconnect();pv.querySelectorAll("iframe").forEach(f=>f.removeAttribute("src"));pvTriggers.forEach(t=>t.kill());pvTriggers=[];_closeP()};
 document.getElementById("pvClose").onclick=closeP;
 if(pvEl.classList.contains("open"))animateProject();
 })();
